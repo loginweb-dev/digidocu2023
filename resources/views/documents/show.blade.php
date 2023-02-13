@@ -163,7 +163,7 @@
                     @endforeach
                 </ul>
             </div>
-            <a href="{{route('documents.edit', $document->id)}}" class="btn btn-success"><i class="fa fa-print"></i>
+            <a href="{{route('documents.print', $document->id)}}" class="btn btn-success"><i class="fa fa-print"></i>
                 Imprimir</a>
 
             @can('edit', $document)
@@ -252,8 +252,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Hora:</label>
+                            <span class="label label-success">{{$document->hora}}</span>
+                        </div>
+
+                        <div class="form-group">
                             <label>Hoja de Ruta:</label>
-                            <p>{{$document->hojaderuta}}</p>
+                            <p>{{$hr->name}}</p>
                         </div>
 
                         <div class="form-group">

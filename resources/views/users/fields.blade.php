@@ -46,7 +46,7 @@
 @endcan
 <div class="box box-primary">
     <div class="box-header no-border">
-        <h3 class="box-title">User Detail</h3>
+        <h3 class="box-title">Detalles del usuario</h3>
 
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -57,7 +57,7 @@
         <div class="row">
             <!-- Name Field -->
             <div class="form-group col-sm-6 {{ $errors->has('name') ? 'has-error' :'' }}">
-                {!! Form::label('name', 'Name:') !!}
+                {!! Form::label('name', 'Nombre completo:') !!}
                 {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('name','<span class="help-block">:message</span>') !!}
             </div>
@@ -81,23 +81,37 @@
 
             <!-- Address Field -->
             <div class="form-group col-sm-6 {{ $errors->has('address') ? 'has-error' :'' }}">
-                {!! Form::label('address', 'Address:') !!}
+                {!! Form::label('address', 'Direccion:') !!}
                 {!! Form::text('address', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('address','<span class="help-block">:message</span>') !!}
             </div>
 
             <!-- Password Field -->
             <div class="form-group col-sm-6 {{ $errors->has('password') ? 'has-error' :'' }}">
-                {!! Form::label('password', 'Password:') !!}
+                {!! Form::label('password', 'Contraseña:') !!}
                 {!! Form::text('password', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('password','<span class="help-block">:message</span>') !!}
             </div>
 
             {{--Status Filed--}}
             <div class="form-group col-sm-6 {{ $errors->has('status') ? 'has-error' :'' }}">
-                {!! Form::label('status', 'Status:') !!}
+                {!! Form::label('status', 'Estado:') !!}
                 {!! Form::select('status', [config('constants.STATUS.ACTIVE') => config('constants.STATUS.ACTIVE'), config('constants.STATUS.BLOCK') => config('constants.STATUS.BLOCK')],null, ['class'=>'form-control']); !!}
                 {!! $errors->first('status','<span class="help-block">:message</span>') !!}
+            </div>
+
+            <!-- phone Field -->
+            <div class="form-group col-sm-6 {{ $errors->has('address') ? 'has-error' :'' }}">
+                {!! Form::label('phone', 'Telefono:') !!}
+                {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
+            </div>
+
+            <!-- type Field -->
+            <div class="form-group col-sm-6 {{ $errors->has('status') ? 'has-error' :'' }}">
+                {!! Form::label('type', 'Tipo:') !!}
+                {!! Form::select('type', ['Interno' => 'Interno', 'Externo' => 'Externo'],null, ['class'=>'form-control']); !!}
+                {!! $errors->first('type','<span class="help-block">:message</span>') !!}
             </div>
 
             <!-- Description Field -->
@@ -106,13 +120,14 @@
                 {!! Form::textarea('description', null, ['class' => 'form-control b-wysihtml5-editor']) !!}
                 {!! $errors->first('description','<span class="help-block">:message</span>') !!}
             </div>
+            
         </div>
     </div>
 </div>
 @can('user manage permission')
     <div class="box box-primary">
         <div class="box-header no-border">
-            <h3 class="box-title">Global Permissions</h3>
+            <h3 class="box-title">Permisos Globales</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -167,7 +182,7 @@
     </div>
     <div class="box box-primary">
         <div class="box-header no-border">
-            <h3 class="box-title">{{ucfirst(config('settings.tags_label_plural'))}} Wise Permissions</h3>
+            <h3 class="box-title">{{ucfirst(config('settings.tags_label_plural'))}} con Permisos</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -191,8 +206,8 @@
                         <tfoot>
                         <tr>
                             <td colspan="6">
-                                <button type="button" onclick="addRow()" class="btn btn-info btn-xs">Add
-                                    new {{config('settings.tags_label_singular')}}</button>
+                                <button type="button" onclick="addRow()" class="btn btn-info btn-xs">Agregar
+                                    nuevo {{config('settings.tags_label_singular')}}</button>
                             </td>
                         </tr>
                         </tfoot>
@@ -204,6 +219,6 @@
 @endcan
 <!-- Submit Field -->
 <div class="form-group">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('users.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('users.index') !!}" class="btn btn-default">Cancelar</a>
 </div>

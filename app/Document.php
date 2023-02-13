@@ -59,7 +59,8 @@ class Document extends Model
         'type',
         'hojaderuta',
         'code',
-        'fecha'
+        'fecha',
+        'hora'
     ];
 
     /**

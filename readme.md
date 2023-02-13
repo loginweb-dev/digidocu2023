@@ -5,7 +5,7 @@ administre documentos con funciones como permisos, cambie el tamaño y comprima 
 comprimir todos los archivos, etc.
 
 ## Installation
-1. Download the latest release from [here](https://github.com/harish81/digidocu/releases) or clone repository.
+1. clone repository https://github.com/loginweb-dev/digidocu2023.git.
 2. Run `composer install`.
 3. Copy & setup `.env` file.
 4. Create database & Change `DB_DATABASE` in `.env`.
@@ -20,15 +20,11 @@ comprimir todos los archivos, etc.
 | super    | 123456   |
 
 ## Documentation
-1. [User Documentation](https://nandoliyaharish.gitbook.io/digidocu/user)
-2. [Developer Documentation](https://nandoliyaharish.gitbook.io/digidocu/dev)
-
-## Contribution
- - Please explain your PR in clear language otherwise your PR may rejected.
- - Contribute to documentation in `public/docs` directory. 
+1. [User Documentation](https://doc.cmt.gob.bo/docs/user)
+2. [Developer Documentation](https://doc.cmt.gob.bo/docs/dev)
  
 ## Licence
-  - DigiDocu is primary licenced under [GPLv3 license](https://github.com/harish81/digidocu/blob/master/LICENSE).
+  - DigiDocu is primary licenced under GPLv3 license.
 
 ## Solutions
  - Contactar al Ing. Percy Alvarez 71130523

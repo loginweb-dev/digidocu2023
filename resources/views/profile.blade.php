@@ -16,7 +16,7 @@
 @section('content')
     <section class="content-header" style="margin-bottom: 25px;">
         <h1 class="pull-left">
-            Profile
+            Perfil
         </h1>
     </section>
     <div class="content">
@@ -29,17 +29,24 @@
             <div class="col-sm-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">Profile</a></li>
-                        <li class=""><a href="#ch_pwd" data-toggle="tab" aria-expanded="false">Change Password</a></li>
+                        <li class="active"><a href="#profile" data-toggle="tab" aria-expanded="true">Perfil</a></li>
+                        <li class=""><a href="#ch_pwd" data-toggle="tab" aria-expanded="false">Cambiar Contrseña</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile">
                             {!! Form::model($profile,['class'=>'form-horizontal']) !!}
                             <div class="form-group {{$errors->has('name')?'has-error':''}}">
-                                {!! Form::label('name', 'Name:', ['class' => 'control-label col-sm-2']) !!}
+                                {!! Form::label('name', 'Nombre:', ['class' => 'control-label col-sm-2']) !!}
                                 <div class="col-sm-8">
                                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                                     {!! $errors->first("name",'<span class="help-block">:message</span>') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{$errors->has('phone')?'has-error':''}}">
+                                {!! Form::label('phone', 'Telefono:', ['class' => 'control-label col-sm-2']) !!}
+                                <div class="col-sm-8">
+                                    {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                                    {!! $errors->first("phone",'<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('email')?'has-error':''}}">
@@ -57,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="form-group {{$errors->has('address')?'has-error':''}}">
-                                {!! Form::label('address', 'Address:', ['class' => 'control-label col-sm-2']) !!}
+                                {!! Form::label('address', 'Direccion:', ['class' => 'control-label col-sm-2']) !!}
                                 <div class="col-sm-8">
                                     {!! Form::text('address', null, ['class' => 'form-control']) !!}
                                     {!! $errors->first("address",'<span class="help-block">:message</span>') !!}
@@ -73,7 +80,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
                                     <button type="submit" class="btn btn-primary" value="btnprofile" name="btnprofile">
-                                        Update Profile
+                                        Actualizar Perfil
                                     </button>
                                 </div>
                             </div>

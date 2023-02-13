@@ -27,9 +27,10 @@ class CreateDocumentsTable extends Migration
             $table->foreign('verified_by')->references('id')->on('users');
 
             $table->string('type');
-            $table->string('hojaderuta');
+            $table->integer('hojaderuta');
             $table->string('code');
             $table->string('fecha');
+            $table->string('hora');
         });
     }
 

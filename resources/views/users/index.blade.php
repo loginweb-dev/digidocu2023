@@ -2,7 +2,7 @@
 @section('title','Users List')
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Users</h1>
+        <h1 class="pull-left">Usuarios</h1>
         <h1 class="pull-right">
             @can('create users')
                 <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px"

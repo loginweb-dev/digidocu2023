@@ -8,9 +8,14 @@
         </select>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label for="">Fecha</label>
         <input type="date" name="fecha" id="" class="form-control" value="@if($document) {{ $document->fecha }} @endif">
+    </div>
+
+    <div class="col-sm-2">
+        <label for="">Hora</label>
+        <input type="time" name="hora" id="" class="form-control" value="@if($document) {{ $document->hora }} @endif">
     </div>
 
     <div class="col-sm-12">
@@ -21,11 +26,9 @@
     <div class="col-sm-6">
         <label for="">Hoja de Ruta</label>
         <select class="form-control" name="hojaderuta" required>
-            <option value="Institucional">Institucional</option>
-            <option value="Informe de Comiciones">Informe de Comiciones</option>
-            <option value="Derecho Propietari">Derecho Propietario</option>
-            <option value="Comicion Especial Carta Organaica">Comicion Especial Carta Organaica</option>
-            <option value="G.A.M.T">G.A.M.T</option>
+            @foreach ($hr as $item)
+                <option value="{{ $item->id }}">{{ $item->name.' - start: '.$item->start }}</option>
+            @endforeach            
         </select>
     </div>
 

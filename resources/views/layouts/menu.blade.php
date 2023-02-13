@@ -19,6 +19,13 @@
     </li>
 @endcan
 
+@can('read tags')
+    <li class="{{ Request::is('admin/hojaderutas*') ? 'active' : '' }}">
+        <a href="{!! route('hojaderutas.index') !!}"><i
+                class="fa fa-file-text-o"></i><span>Hojas de Ruta</span></a>
+    </li>
+@endcan
+
 @if(auth()->user()->is_super_admin)
     <li class="treeview {{ Request::is('admin/advanced*') ? 'active' : '' }}">
         <a href="#">

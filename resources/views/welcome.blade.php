@@ -87,7 +87,7 @@
 
         <div class="links">
             <blockquote>
-                {{$quotes}}
+                {{-- {{$quotes}} --}}
             </blockquote>
         </div>
     </div>

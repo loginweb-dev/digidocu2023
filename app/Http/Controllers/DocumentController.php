@@ -26,6 +26,8 @@ use Intervention\Image\Facades\Image;
 use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Permission;
 
+use App\Hojaderuta;
+
 class DocumentController extends Controller
 {
     /** @var  TagRepository */
@@ -70,6 +72,7 @@ class DocumentController extends Controller
             $request->get('status')
         );
         $tags = $this->tagRepository->all();
+        // $hr = Hojaderuta::all();
         return view('documents.index', compact('documents', 'tags'));
     }
 
@@ -83,7 +86,9 @@ class DocumentController extends Controller
         $this->authorize('create', Document::class);
         $tags = $this->tagRepository->all();
         $customFields = $this->customFieldRepository->getForModel('documents');
-        return view('documents.create', compact('tags', 'customFields'));
+
+        $hr = Hojaderuta::all();
+        return view('documents.create', compact('tags', 'customFields', 'hr'));
     }
 
     /**
@@ -134,7 +139,9 @@ class DocumentController extends Controller
         $this->authorize('view', $document);
 
         $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
-        $dataToRet = compact('document', 'missigDocMsgs');
+
+        $hr = Hojaderuta::find($document->hojaderuta);
+        $dataToRet = compact('document', 'missigDocMsgs', 'hr');
 
         if (auth()->user()->can('user manage permission')) {
             $users = User::where('id', '!=', 1)->get();
@@ -340,5 +347,11 @@ class DocumentController extends Controller
         $this->documentRepository->deleteFile($file);
         Flash::success(ucfirst(config('settings.file_label_singular')) . " Deleted Successfully");
         return redirect()->back();
+    }
+
+    public function print($id)
+    {
+        $document = Document::find($id);
+        return view("documents.print");
     }
 }

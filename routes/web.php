@@ -44,8 +44,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check_block']], func
         Route::post('/{id}', 'DocumentController@storeFiles')->name('store');
         Route::delete('/{id}', 'DocumentController@deleteFile')->name('destroy');
     });
+    Route::get('document-print/{id}','DocumentController@print')->name('documents.print');
 
     Route::get('/_files/{dir?}/{file?}','HomeController@showFile')->name('files.showfile');
     Route::get('/_zip/{id}/{dir?}','HomeController@downloadZip')->name('files.downloadZip');
     Route::post('/_pdf','HomeController@downloadPdf')->name('files.downloadPdf');
+
+    Route::resource('hojaderutas', 'HojaderutaController');
 });
