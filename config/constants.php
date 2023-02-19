@@ -1,11 +1,11 @@
 <?php
 return [
     'STATUS' => [
-        "PENDING" => 'PENDIENTE',
-        "ACTIVE" => 'ACTIVO',
-        "BLOCK" => 'INACTIVO',
-        "REJECT" => 'RECHAZADO',
-        "APPROVED" => 'APPROVADO',
+        "PENDING" => 'PENDING',
+        "ACTIVE" => 'ACTIVE',
+        "BLOCK" => 'BLOCK',
+        "REJECT" => 'REJECT',
+        "APPROVED" => 'APPROVED',
     ],
     'GLOBAL_PERMISSIONS' => [ //permission is = permission=>label of permission
         'USERS' => [
@@ -22,24 +22,24 @@ return [
             'delete tags' => 'delete',
         ],
         'DOCUMENTS' => [
-            'create documents' => 'Crear',
-            'read documents' => 'leer',
-            'update documents' => 'acttualizar',
-            'delete documents' => 'eliminar',
-            'verify documents' => 'verificar',
+            'create documents' => 'create',
+            'read documents' => 'read',
+            'update documents' => 'update',
+            'delete documents' => 'delete',
+            'verify documents' => 'verify',
         ]
     ],
     'TAG_LEVEL_PERMISSIONS' => [
-        'read documents in tag ' => 'leer',
-        'create documents in tag ' => 'crear',
-        'update documents in tag ' => 'acttualizar',
-        'delete documents in tag ' => 'eliminar',
-        'verify documents in tag ' => 'verificar',
+        'read documents in tag ' => 'read',
+        'create documents in tag ' => 'create',
+        'update documents in tag ' => 'update',
+        'delete documents in tag ' => 'delete',
+        'verify documents in tag ' => 'verify',
     ],
     'DOCUMENT_LEVEL_PERMISSIONS' => [
-        'read document ' => 'leer',
-        'update document ' => 'editar',
-        'delete document ' => 'eliminar',
-        'verify document ' => 'verificar',
+        'read document ' => 'read',
+        'update document ' => 'update',
+        'delete document ' => 'delete',
+        'verify document ' => 'verify',
     ]
 ];

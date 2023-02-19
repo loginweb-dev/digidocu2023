@@ -51,4 +51,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check_block']], func
     Route::post('/_pdf','HomeController@downloadPdf')->name('files.downloadPdf');
 
     Route::resource('hojaderutas', 'HojaderutaController');
+    Route::resource('comunicaciones', 'ComunicacionesController');
 });

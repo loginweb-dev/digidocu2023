@@ -1,10 +1,10 @@
-{!! Form::open(['route' => ['comunicaciones.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['hojaderutas.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('comunicaciones.show', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('documents.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
     @can('update tags')
-        <a href="{{ route('comunicaciones.edit', $id) }}" class='btn btn-default btn-xs'>
+        <a href="{{ route('hojaderutas.edit', $id) }}" class='btn btn-default btn-xs'>
             <i class="glyphicon glyphicon-edit"></i>
         </a>
     @endcan

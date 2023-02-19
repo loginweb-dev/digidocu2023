@@ -26,6 +26,13 @@
     </li>
 @endcan
 
+@can('read tags')
+    <li class="{{ Request::is('admin/comunicaciones*') ? 'active' : '' }}">
+        <a href="{!! route('comunicaciones.index') !!}"><i
+                class="fa fa-phone"></i><span>Comunicaciones</span></a>
+    </li>
+@endcan
+
 @if(auth()->user()->is_super_admin)
     <li class="treeview {{ Request::is('admin/advanced*') ? 'active' : '' }}">
         <a href="#">

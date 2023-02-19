@@ -26,11 +26,11 @@ class CreateDocumentsTable extends Migration
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('verified_by')->references('id')->on('users');
 
-            $table->string('type');
-            $table->integer('hojaderuta');
-            $table->string('code');
-            $table->string('fecha');
-            $table->string('hora');
+            $table->string('type')->nullable();
+            $table->integer('hojaderuta')->nullable();
+            $table->string('code')->nullable();
+            $table->date('fecha')->nullable();
+            $table->time('hora')->nullable();
         });
     }
 

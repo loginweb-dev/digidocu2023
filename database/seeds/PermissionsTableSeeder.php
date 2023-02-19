@@ -29,7 +29,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name'=>'update documents']);
         Permission::create(['name'=>'delete documents']);
         Permission::create(['name'=>'verify documents']);
-        //Permission::create(['name'=>'create comments']);
-        //Permission::create(['name'=>'read comments']);
+        // Permission::create(['name'=>'create comments']);
+        // Permission::create(['name'=>'read comments']);
     }
 }

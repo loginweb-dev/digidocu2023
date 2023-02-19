@@ -16,7 +16,25 @@ class UsersTableSeeder extends Seeder
             'name' => 'Super Admin',
             'username' => 'super',
             'password' => bcrypt('123456'),
-            'status' => config('constants.STATUS.ACTIVE')
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Interno'
         ]);
+
+        \App\User::create([
+            'name' => 'Percy Alvarez',
+            'username' => 'percy.alvarez',
+            'password' => bcrypt('123456'),
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Interno'
+        ]);
+
+        \App\User::create([
+            'name' => 'JORGE ENRIQUE VARGAS SOSSA',
+            'username' => 'jorge.vargas',
+            'password' => bcrypt('123456'),
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Interno'
+        ]);
+
     }
 }

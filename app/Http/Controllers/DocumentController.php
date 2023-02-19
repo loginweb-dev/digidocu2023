@@ -130,6 +130,7 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
+        
         /** @var Document $document */
         $document = $this->documentRepository
             ->getOneEagerLoaded($id,['files', 'files.fileType', 'files.createdBy', 'activities', 'activities.createdBy', 'tags']);
@@ -143,6 +144,7 @@ class DocumentController extends Controller
         $hr = Hojaderuta::find($document->hojaderuta);
         $dataToRet = compact('document', 'missigDocMsgs', 'hr');
 
+        
         if (auth()->user()->can('user manage permission')) {
             $users = User::where('id', '!=', 1)->get();
             $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($document);
@@ -198,8 +200,10 @@ class DocumentController extends Controller
         $document = Document::findOrFail($id);
         $this->authorize('edit', $document);
         $tags = Tag::all();
+        $hr = Hojaderuta::all();
+        $mihr = Hojaderuta::find($id);
         $customFields = $this->customFieldRepository->getForModel('documents');
-        return view('documents.edit', compact('tags', 'customFields', 'document'));
+        return view('documents.edit', compact('tags', 'customFields', 'document', 'hr', 'mihr'));
     }
 
     /**

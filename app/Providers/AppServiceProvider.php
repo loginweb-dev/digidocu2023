@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         }catch (\Exception $e){}
 
         //laravel collective custom components
-        Form::component('bsText', 'components.input', ['name', 'value' => null, 'attributes' => [], 'label' => "Titulo"]);
+        Form::component('bsText', 'components.input', ['name', 'value' => null, 'attributes' => [], 'label' => ucfirst(config('settings.document_name'))]);
         Form::component('bsTextarea', 'components.textarea', ['name', 'value' => null, 'attributes' => [], 'label' => null]);
         Form::component('bsSelect', 'components.select', ['name', 'list' => null, 'value'=>null, 'attributes' => [], 'label' => null]);
 
