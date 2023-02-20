@@ -27,7 +27,7 @@ use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Permission;
 
 use App\Hojaderuta;
-
+use RicardoPaes\Whaticket\Api;
 class DocumentController extends Controller
 {
     /** @var  TagRepository */
@@ -172,6 +172,11 @@ class DocumentController extends Controller
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Derivado de: ".$miuser->name." a: ".$user->name);
         $document->status = config('constants.STATUS.PENDING');
         $document->save();
+
+        //solo enviar si tiene telefono
+        if ($user->phone) {
+            $this->send($id, '591'.$user->phone);
+        }
         return redirect()->back();
     }
 
@@ -357,5 +362,17 @@ class DocumentController extends Controller
     {
         $document = Document::find($id);
         return view("documents.print");
+    }
+
+    public function send($id, $phone)
+    {
+        // $phone = '59171130523';
+        $midoc = Document::find($id);
+        $miurl = config('settings.system_url');
+        $api = new Api(config('settings.WHATICKET_BASEURL'), config('settings.WHATICKET_TOKEN'));
+		$api->sendMessage($phone, 'Revisa el documento #'.$id.' porfavor, ingresando a la direccion '.$miurl, ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));
+
+        // $api->sendMessage($phone, 'http://localhost:8000/admin/documents/8', ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));
+        return redirect()->route('documents.show', $id);
     }
 }

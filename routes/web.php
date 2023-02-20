@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check_block']], func
 
     Route::resource('documents', 'DocumentController');
     Route::post('document-verify/{id}','DocumentController@verify')->name('documents.verify');
+
+    Route::get('document-send/{id}','DocumentController@send')->name('documents.send');
+
     Route::post('document-store-permission/{id}','DocumentController@storePermission')->name('documents.store-permission');
     Route::post('document-delete-permission/{document_id}/{user_id}','DocumentController@deletePermission')->name('documents.delete-permission');
     Route::group(['prefix' => '/files-upload', 'as' => 'documents.files.'], function () {

@@ -145,7 +145,7 @@
         </h1>
         <h1 class="pull-right" style="margin-bottom: 5px;">
             <div class="dropdown" style="display: inline-block">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i
                         class="fa fa-download"></i> Descargar Zip
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -163,11 +163,13 @@
                     @endforeach
                 </ul>
             </div>
-            <a href="{{route('documents.print', $document->id)}}" class="btn btn-success"><i class="fa fa-print"></i>
+            <a href="{{route('documents.print', $document->id)}}" class="btn btn-default"><i class="fa fa-print"></i>
                 Imprimir</a>
 
+            <a href="{{route('documents.send', $document->id)}}" class="btn btn-default"><i class="fa fa-user"></i>
+                    Notificar</a>
             @can('edit', $document)
-                <a href="{{route('documents.edit', $document->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i>
+                <a href="{{route('documents.edit', $document->id)}}" class="btn btn-default"><i class="fa fa-edit"></i>
                     Editar</a>
             @endcan
             @can('delete', $document)
@@ -375,7 +377,7 @@
                             </div>
                             @can('update', [$document, $document->tags->pluck('id')])
                                 <a href="{{route('documents.files.create',$document->id)}}"
-                                   class="btn btn-success btn-lg"><i class="fa fa-plus"></i>
+                                   class="btn btn-primary"><i class="fa fa-plus"></i>
                                     Nuevos Archivos</a>
                             @endcan
                         </div>

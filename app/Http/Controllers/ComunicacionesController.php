@@ -47,12 +47,19 @@ class ComunicacionesController extends Controller
     public function store(Request $request)
     {
 
+        // $api = new Api('WHATICKET_BASEURL', 'WHATICKET_TOKEN');
+        // $api->sendMessage('NUMBER', 'Whaticket api test', 'WHATICKET_WHATSAPP_ID or null');
+        
         $new = Comunicaciones::create($request->all());
         $document = Document::create([
             'name' =>  'Comunicacion Interna #'.$new->id,
             'status' => config('constants.STATUS.PENDING'),
             'created_by' => Auth::id(),
-            'hojaderuta' => $request->hojaderuta_id
+            'hojaderuta' => $request->hojaderuta_id,
+            'code' => $request->code,
+            'fecha' => $request->fecha,
+            'hora' => $request->hora,
+            'type' => 'Interno'
         ]);
         $new->document_id = $document->id;
         $new->save();

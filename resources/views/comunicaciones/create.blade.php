@@ -13,21 +13,17 @@
                 <div class="row">
                     {!! Form::open(['route' => 'comunicaciones.store']) !!}
 
-                    <!-- Name Field -->
-                    <div class="form-group col-sm-4 {{ $errors->has('fecha') ? 'has-error' :'' }}">
-                        {!! Form::label('fecha', 'Fecha de salida:') !!}
-                        {!! Form::date('fecha', null, ['class' => 'form-control']) !!}
-                        {!! $errors->first('fecha','<span class="help-block">:message</span>') !!}
+                    <div class="col-sm-4">
+                        <label for="">Fecha (*)</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" value="">
+                    </div>
+                
+                    <div class="col-sm-2">
+                        <label for="">Hora (*)</label>
+                        <input type="time" name="hora" id="hora" class="form-control" value="">
                     </div>
 
-                 
-                    <!-- Name Field -->
-                    <div class="form-group col-sm-2 {{ $errors->has('hora') ? 'has-error' :'' }}">
-                        {!! Form::label('hora', 'Hora:') !!}
-                        {!! Form::time('hora', null, ['class' => 'form-control']) !!}
-                        {!! $errors->first('hora','<span class="help-block">:message</span>') !!}
-                    </div>
-
+                    
                     <div class="form-group col-sm-6 {{ $errors->has('de_id') ? 'has-error' :'' }}">
                         {!! Form::label('de_id', 'De :') !!}
                         <input type="hidden" name="de_id" class="form-control" value="{{ $user->id }}">
@@ -35,30 +31,34 @@
                     </div>
 
 
-                   
                     <div class="form-grou col-sm-6">
-                        <label for="">Dirigido A: </label>
+                        <label for="">Dirigido A: (*)</label>
                         <select class="form-control" name="dirigido_id" required>
                             @foreach ($users as $item)
-                                <option value="{{ $item->id }}">{{ $item->name.' - '.$item->id }}</option>
+                                @if ($item->id == $user->id)                                    
+                                @else
+                                    <option value="{{ $item->id }}">{{ $item->name.' - '.$item->id }}</option>
+                                @endif                                
                             @endforeach            
                         </select>
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <label for="">Via: </label>
+                        <label for="">Via: (*)</label>
                         <select class="form-control" name="via_id" required>
                             @foreach ($users as $item)
-                                <option value="{{ $item->id }}">{{ $item->name.' - '.$item->id }}</option>
+                                @if ($item->id == $user->id)                                    
+                                @else
+                                    <option value="{{ $item->id }}">{{ $item->name.' - '.$item->id }}</option>
+                                @endif
                             @endforeach            
                         </select>
                     </div>
 
 
                     <div class="col-sm-6">
-                        <label for="">Hoja de Ruta </label>
+                        <label for="">Hoja de Ruta (*)</label>
                         <select class="form-control" name="hojaderuta_id" id="hojaderuta_id" required>
-                            <option value="0">Elije una opcion</option>
                             @foreach ($hr as $item)
                                 @if (isset($mihr))
                                     <option value="{{ $item->id }}" @if($item->id == $mihr->id) selected @endif>{{ $item->name.' - '.$item->text }}</option>
@@ -70,8 +70,8 @@
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <label for="">Codigo: </label>
-                        <input type="text" class="form-control">
+                        <label for="">Codigo: (*)</label>
+                        <input type="text" class="form-control" id="code" name="code">
                     </div>
                     
                     <div class="form-group col-sm-6">
@@ -86,8 +86,10 @@
 
                     <!-- Submit Field -->
                     <div class="form-group col-sm-12">
+                        <p>todos los campos con (*) son obligatorios</p>
                         {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
                         <a href="{!! route('hojaderutas.index') !!}" class="btn btn-default">Cancelar</a>
+                 
                     </div>
 
 
@@ -96,9 +98,26 @@
             </div>
         </div>
     </div>
+    <script>
+
+        var date = new Date();
+    
+        var dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        var currentDate = date.toLocaleDateString('ja-JP', dateOptions).replace(/\//gi, '-');
+        document.getElementById('fecha').value = currentDate;
+    
+        var timeOptions = { hour: '2-digit', minute: '2-digit' };
+        var currentTime = date.toLocaleTimeString('it-IT', timeOptions);
+        document.getElementById('hora').value = currentTime;
+    
+        const miselect = document.getElementById('hojaderuta_id');
+        miselect.addEventListener('change', function handleChange(event) {
+            console.log(event.target.value); // 👉️ get selected VALUE
+
+            document.getElementById('code').value = miselect.options[miselect.selectedIndex].text;
+        });
+
+    </script>
 @endsection
 
 
-<script>
-
-</script>

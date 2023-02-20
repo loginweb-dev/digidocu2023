@@ -46,6 +46,7 @@ class ComunicacionDataTable extends DataTable
             'via_id',
             'de_id',
             'hojaderuta_id',
+            'document_id',
             'referencia',
             'nota',
             'fecha',

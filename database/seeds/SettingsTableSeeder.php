@@ -13,9 +13,11 @@ class SettingsTableSeeder extends Seeder
     {
         \App\Setting::create(['name'=>'system_title','value'=>'Gestion Documental']);
         \App\Setting::create(['name'=>'system_logo','value'=>'logo.png']);
+        \App\Setting::create(['name'=>'system_url','value'=>'http://localhost:8000/']);
 
-        \App\Setting::create(['name'=>'tags_label_singular','value'=>'Copia']);
-        \App\Setting::create(['name'=>'tags_label_plural','value'=>'Copias']);
+
+        \App\Setting::create(['name'=>'tags_label_singular','value'=>'Grupo']);
+        \App\Setting::create(['name'=>'tags_label_plural','value'=>'Grupos']);
 
         \App\Setting::create(['name'=>'document_label_singular','value'=>'documento']);
         \App\Setting::create(['name'=>'document_label_plural','value'=>'documentos']);
@@ -31,7 +33,13 @@ class SettingsTableSeeder extends Seeder
 
         \App\Setting::create(['name'=>'show_missing_files_errors','value'=>'false']);
 
+        \App\Setting::create(['name'=>'com_interna_title','value'=>'Com. interna']);
         \App\Setting::create(['name'=>'com_interna_tag','value'=>'2']);
+    
+        App\Setting::create(['name'=>'WHATICKET_BASEURL','value'=>'https://api.appxi.net']);
+        \App\Setting::create(['name'=>'WHATICKET_TOKEN','value'=>'4cf2980f-2d69-40e8-9d85-318d602f336c']);
+        \App\Setting::create(['name'=>'WHATICKET_WHATSAPP_ID','value'=>'3']);
         
+        \App\Setting::create(['name'=>'hr_title','value'=>'Hoja de ruta']);
     }
 }

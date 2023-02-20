@@ -4,7 +4,7 @@
 @can('viewAny',\App\Document::class)
     <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
         <a href="{!! route('documents.index') !!}"><i
-                class="fa fa-file"></i><span>{{ucfirst(config('settings.document_label_plural'))}}</span></a>
+                class="fa fa-file"></i><span>{{ ucfirst(config('settings.document_label_plural')) }}</span></a>
     </li>
 @endcan
 @can('read users')
@@ -15,21 +15,21 @@
 @can('read tags')
     <li class="{{ Request::is('admin/tags*') ? 'active' : '' }}">
         <a href="{!! route('tags.index') !!}"><i
-                class="fa fa-tags"></i><span>{{ucfirst(config('settings.tags_label_plural'))}}</span></a>
+                class="fa fa-tags"></i><span>{{ ucfirst(config('settings.tags_label_singular')) }}</span></a>
     </li>
 @endcan
 
 @can('read tags')
     <li class="{{ Request::is('admin/hojaderutas*') ? 'active' : '' }}">
         <a href="{!! route('hojaderutas.index') !!}"><i
-                class="fa fa-file-text-o"></i><span>Hojas de Ruta</span></a>
+                class="fa fa-file-text-o"></i><span>Hoa de rutas</span></a>
     </li>
 @endcan
 
 @can('read tags')
     <li class="{{ Request::is('admin/comunicaciones*') ? 'active' : '' }}">
         <a href="{!! route('comunicaciones.index') !!}"><i
-                class="fa fa-phone"></i><span>Comunicaciones</span></a>
+                class="fa fa-phone"></i><span>Com. Internas</span></a>
     </li>
 @endcan
 
