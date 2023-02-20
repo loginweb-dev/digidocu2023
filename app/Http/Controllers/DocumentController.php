@@ -28,6 +28,7 @@ use Spatie\Permission\Models\Permission;
 
 use App\Hojaderuta;
 use RicardoPaes\Whaticket\Api;
+use ZanySoft\LaravelPDF\PDF;
 class DocumentController extends Controller
 {
     /** @var  TagRepository */
@@ -360,13 +361,18 @@ class DocumentController extends Controller
 
     public function print($id)
     {
-        $document = Document::find($id);
-        return view("documents.print");
+        $midoc = Document::find($id);
+        $data = [
+            'foo' => 'bar',
+            'midoc' => $midoc
+        ];
+        $pdf = new PDF();
+        $pdf->loadView('documents.print', $data);
+        return $pdf->stream('document.pdf');
     }
 
     public function send($id, $phone)
     {
-        // $phone = '59171130523';
         $midoc = Document::find($id);
         $miurl = config('settings.system_url');
         $api = new Api(config('settings.WHATICKET_BASEURL'), config('settings.WHATICKET_TOKEN'));

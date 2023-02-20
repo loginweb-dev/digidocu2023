@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <h1>Imprimir</h1>
-
+    <h1>Imprimir doc #{{ $midoc->id }}</h1>
+    {{ $midoc }}
 </body>
 </html>
