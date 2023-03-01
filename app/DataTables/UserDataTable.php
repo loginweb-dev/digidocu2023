@@ -72,6 +72,7 @@ class UserDataTable extends DataTable
             'id',
             'name',
             'email',
+            'phone',
             'username',
             'address',
             'status'

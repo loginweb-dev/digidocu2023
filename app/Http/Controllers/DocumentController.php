@@ -88,8 +88,9 @@ class DocumentController extends Controller
         $tags = $this->tagRepository->all();
         $customFields = $this->customFieldRepository->getForModel('documents');
 
-        $hr = Hojaderuta::all();
-        return view('documents.create', compact('tags', 'customFields', 'hr'));
+        $hr = Hojaderuta::orderBy('updated_at', 'desc')->get();
+        $remitentes = User::where('type', 'Externo')->orderBy('updated_at', 'desc')->get();
+        return view('documents.create', compact('tags', 'customFields', 'hr', 'remitentes'));
     }
 
     /**
@@ -112,15 +113,36 @@ class DocumentController extends Controller
         $miuser = User::find(Auth::id());
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Creado por: ".$miuser->name);
 
+        //update hoja de ruta
+        $hdr = Hojaderuta::find($request->hojaderuta);
+        $hdr->start =  $hdr->start + 1;
+        $hdr->save();
+
         //create permission for new document
         foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS') as $perm_key => $perm) {
             Permission::create(['name' => $perm_key . $document->id]);
         }
 
+        //enviar whatsapp
+        // $remitente = User::find($request->remitente_id);
+        // if ($remitente->phone) {    
+        //     try {
+        //         $miphone = '591'.$remitente->phone;
+        //         $api = new Api(config('settings.WHATICKET_BASEURL'), config('settings.WHATICKET_TOKEN'));
+        //         $api->sendMessage($miphone, 'se registro correctamente..', ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));    
+        //         return redirect()->route('documents.index');
+        //     } catch (\Throwable $th) {
+        //         return redirect()->route('documents.index');
+        //     }
+            
+        // }
         if ($request->has('savnup')) {
             return redirect()->route('documents.files.create', $document->id);
         }
+        
         return redirect()->route('documents.index');
+
+
     }
 
     /**
@@ -362,13 +384,19 @@ class DocumentController extends Controller
     public function print($id)
     {
         $midoc = Document::find($id);
-        $data = [
-            'foo' => 'bar',
-            'midoc' => $midoc
-        ];
-        $pdf = new PDF();
-        $pdf->loadView('documents.print', $data);
-        return $pdf->stream('document.pdf');
+        // $data = [
+        //     'foo' => 'bar',
+        //     'midoc' => $midoc
+        // ];
+        // $pdf = new PDF();
+        // $pdf->loadView('documents.print', $data);
+        // return $pdf->stream('document.pdf');
+
+        // $query = App\Documento::where('id', $id)->with('categoria', 'destinatario', 'editor', 'copias', 'remitente_interno', 'remitente_externo')->first();
+        $vista = view('documents.print', compact('midoc'));
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($vista)->setPaper('letter');
+        return $pdf->stream();
     }
 
     public function send($id, $phone)
@@ -377,8 +405,6 @@ class DocumentController extends Controller
         $miurl = config('settings.system_url');
         $api = new Api(config('settings.WHATICKET_BASEURL'), config('settings.WHATICKET_TOKEN'));
 		$api->sendMessage($phone, 'Revisa el documento #'.$id.' porfavor, ingresando a la direccion '.$miurl, ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));
-
-        // $api->sendMessage($phone, 'http://localhost:8000/admin/documents/8', ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));
         return redirect()->route('documents.show', $id);
     }
 }

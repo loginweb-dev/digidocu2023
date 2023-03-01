@@ -37,14 +37,17 @@
 
                     <!-- Submit Field -->
                     <div class="form-group col-sm-12">
+                        
                         {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
                         <a href="{!! route('hojaderutas.index') !!}" class="btn btn-default">Cancelar</a>
+                        <p>Todos los campos son obligatorios</p>
                     </div>
 
 
                     {!! Form::close() !!}
                 </div>
             </div>
+         
         </div>
     </div>
 @endsection

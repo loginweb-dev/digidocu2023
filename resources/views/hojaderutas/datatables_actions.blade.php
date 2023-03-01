@@ -1,19 +1,19 @@
-{!! Form::open(['route' => ['comunicaciones.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['hojaderutas.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('comunicaciones.show', $id) }}" class='btn btn-default btn-xs'>
+    {{-- <a href="{{ route('hojaderutas.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
-    </a>
+    </a> --}}
     @can('update tags')
-        <a href="{{ route('comunicaciones.edit', $id) }}" class='btn btn-default btn-xs'>
+        <a href="{{ route('hojaderutas.edit', $id) }}" class='btn btn-default btn-xs'>
             <i class="glyphicon glyphicon-edit"></i>
         </a>
     @endcan
-    @can('delete tags')
+    {{-- @can('delete tags')
         {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [
             'type' => 'submit',
             'class' => 'btn btn-danger btn-xs',
             'onclick' => "return conformDel(this,event)"
         ]) !!}
-    @endcan
+    @endcan --}}
 </div>
 {!! Form::close() !!}

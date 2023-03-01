@@ -60,7 +60,8 @@ class Document extends Model
         'hojaderuta',
         'code',
         'fecha',
-        'hora'
+        'hora',
+        'remitente_id'
     ];
 
     /**

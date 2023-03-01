@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Hojaderuta;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,4 +15,10 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix' => 'hojaderutas'], function () {
+    Route::get('get/{id}', function ($id) {
+        return Hojaderuta::find($id);
+    });
 });

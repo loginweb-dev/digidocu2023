@@ -39,27 +39,27 @@ class FileTypesSeeder extends Seeder
         \App\Hojaderuta::create([
             'name' => 'Sin hoja de ruta',
             'text' => 'null',
-            'start' => 0
+            'start' => 1
         ]);
         \App\Hojaderuta::create([
             'name' => 'Comunicacion Interna',
-            'text' => '28-22/COM. COM.INTER',
-            'start' => 0
+            'text' => '##-22/COM. COM.INTER',
+            'start' => 1
         ]);
         \App\Hojaderuta::create([
             'name' => 'INSTITU',
-            'text' => '831/22-23/INSTITUC',
-            'start' => 0
+            'text' => '##/22-23/INSTITUC',
+            'start' => 1
         ]);
         \App\Hojaderuta::create([
             'name' => 'Informe de Comiciones',
-            'text' => '147-INFOR.COM',
-            'start' => 0
+            'text' => '##-INFOR.COM',
+            'start' => 1
         ]);
         \App\Hojaderuta::create([
             'name' => 'Derecho propietario',
-            'text' => '28-22/COM. DERECH.PRO',
-            'start' => 0
+            'text' => '##-22/COM. DERECH.PRO',
+            'start' => 1
         ]);
 
         

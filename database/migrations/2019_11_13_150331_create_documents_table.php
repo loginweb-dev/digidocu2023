@@ -31,6 +31,7 @@ class CreateDocumentsTable extends Migration
             $table->string('code')->nullable();
             $table->date('fecha')->nullable();
             $table->time('hora')->nullable();
+            $table->integer('remitente_id');
         });
     }
 

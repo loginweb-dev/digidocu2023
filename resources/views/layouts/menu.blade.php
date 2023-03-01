@@ -15,14 +15,14 @@
 @can('read tags')
     <li class="{{ Request::is('admin/tags*') ? 'active' : '' }}">
         <a href="{!! route('tags.index') !!}"><i
-                class="fa fa-tags"></i><span>{{ ucfirst(config('settings.tags_label_singular')) }}</span></a>
+                class="fa fa-tags"></i><span>{{ ucfirst(config('settings.tags_label_plural')) }}</span></a>
     </li>
 @endcan
 
 @can('read tags')
     <li class="{{ Request::is('admin/hojaderutas*') ? 'active' : '' }}">
         <a href="{!! route('hojaderutas.index') !!}"><i
-                class="fa fa-file-text-o"></i><span>Hoa de rutas</span></a>
+                class="fa fa-file-text-o"></i><span>Hoja de rutas</span></a>
     </li>
 @endcan
 

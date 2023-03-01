@@ -100,19 +100,21 @@
                 {!! $errors->first('status','<span class="help-block">:message</span>') !!}
             </div>
 
+                <!-- type Field -->
+            <div class="form-group col-sm-6 {{ $errors->has('status') ? 'has-error' :'' }}">
+                {!! Form::label('type', 'Tipo:') !!}
+                {!! Form::select('type', ['Externo' => 'Externo', 'Interno' => 'Interno'],null, ['class'=>'form-control']); !!}
+                {!! $errors->first('type','<span class="help-block">:message</span>') !!}
+            </div>
+
             <!-- phone Field -->
-            <div class="form-group col-sm-6 {{ $errors->has('address') ? 'has-error' :'' }}">
+            <div class="form-group col-sm-6 {{ $errors->has('phone') ? 'has-error' :'' }}">
                 {!! Form::label('phone', 'Telefono:') !!}
                 {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
             </div>
 
-            <!-- type Field -->
-            <div class="form-group col-sm-6 {{ $errors->has('status') ? 'has-error' :'' }}">
-                {!! Form::label('type', 'Tipo:') !!}
-                {!! Form::select('type', ['Interno' => 'Interno', 'Externo' => 'Externo'],null, ['class'=>'form-control']); !!}
-                {!! $errors->first('type','<span class="help-block">:message</span>') !!}
-            </div>
+ 
 
             <!-- Description Field -->
             <div class="form-group col-sm-12 col-lg-12 {{ $errors->has('description') ? 'has-error' :'' }}">
@@ -222,3 +224,32 @@
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('users.index') !!}" class="btn btn-default">Cancelar</a>
 </div>
+
+<script>
+    const selectElement = document.getElementById('name');
+
+    selectElement.addEventListener('keyup', (event) => {
+        document.getElementById('email').value = slug(event.target.value)+"@cmt.gob.bo";
+        document.getElementById('username').value = slug(event.target.value);
+        document.getElementById('password').value = slug(event.target.value);
+    });
+
+    var slug = function(str) {
+        str = str.replace(/^\s+|\s+$/g, ''); // trim
+        str = str.toLowerCase();
+
+        // remove accents, swap ñ for n, etc
+        var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+        var to   = "aaaaaeeeeeiiiiooooouuuunc------";
+        for (var i = 0, l = from.length; i < l; i++) {
+            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+        }
+
+        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+        return str;
+    };
+
+</script>

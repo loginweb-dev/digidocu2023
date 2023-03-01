@@ -1,12 +1,13 @@
 <!-- Name Field -->
 
     <div class="col-sm-6">
-        <label for="">Tipo Documento</label>
-        <select class="form-control" name="type" required>
-            <option value="Interno">Interno</option>
-            <option value="Externo">Externo</option>
+        <label for="">Remitente Externo | <a href="{{ config('settings.system_url') }}admin/users/create">Nuevo Usuario</a></label>
+        <select class="form-control" name="remitente_id" id="remitente_id" required>
+            @foreach ($remitentes as $item)
+                <option value="{{ $item->id }}">{{ $item->name.' - '.$item->phone }}</option>
+            @endforeach            
         </select>
-        @if($document) {{ $document->type }} @endif
+        <input type="hidden" name="type" value="Externo">
     </div>
 
     <div class="col-sm-4">
@@ -34,7 +35,7 @@
                 @if (isset($mihr))
                     <option value="{{ $item->id }}" @if($item->id == $mihr->id) selected @endif>{{ $item->name.' - '.$item->text }}</option>
                 @else
-                <option value="{{ $item->id }}">{{ $item->name.' - '.$item->text }}</option>
+                    <option value="{{ $item->id }}">{{ $item->text }}</option>
                 @endif
             @endforeach            
         </select>
@@ -49,7 +50,7 @@
        <br>
     </div>
 
-{!! Form::bsText('name') !!}
+
 @if ($document)
     @if (auth()->user()->can('update document '.$document->id) && !auth()->user()->is_super_admin)
         @foreach($document->tags->pluck('id')->toArray() as $tagId)
@@ -84,6 +85,9 @@
         {!! $errors->first("tags",'<span class="help-block">:message</span>') !!}
     </div>
 @endif
+
+{!! Form::bsText('name') !!}
+
 {!! Form::bsTextarea('descripcion',null,['class'=>'form-control b-wysihtml5-editor']) !!}
 
 
@@ -105,16 +109,8 @@
 </div>
 
 
-{{-- 
-<div class="col-sm-12">
-    {{ $document }}
-</div> --}}
-
 <script>
-    // document.getElementById('fecha').valueAsDate = new Date();
-
     var date = new Date();
-
     var dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
     var currentDate = date.toLocaleDateString('ja-JP', dateOptions).replace(/\//gi, '-');
     document.getElementById('fecha').value = currentDate;
@@ -125,16 +121,15 @@
 
 
     const select = document.getElementById('hojaderuta');
-    select.addEventListener('change', function handleChange(event) {
-        console.log(event.target.value); // 👉️ get selected VALUE
-
-        // 👇️ get selected VALUE even outside event handler
-        console.log(select.options[select.selectedIndex].value);
-
-        // 👇️ get selected TEXT in or outside event handler
-        console.log(select.options[select.selectedIndex].text);
-
-        document.getElementById('code').value = select.options[select.selectedIndex].text;
+    select.addEventListener('change', async function handleChange(event) {
+        var hdr = await axios("{{ config('settings.system_url') }}api/hojaderutas/get/"+select.options[select.selectedIndex].value)
+        var newcode = hdr.data.text
+        newcode = newcode.replace("##", hdr.data.start)
+        document.getElementById('code').value = newcode
+        Toastify({
+            text: "Hoja de Ruta: "+hdr.data.name,
+            duration: 3000
+        }).showToast();
     });
 
 </script>

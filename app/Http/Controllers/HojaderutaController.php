@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Hojaderuta;
 use App\DataTables\HojaderutaDataTable;
 use Flash;
+use App\User;
+use Carbon\Carbon;
+use RicardoPaes\Whaticket\Api;
+use Illuminate\Support\Facades\Auth;
 class HojaderutaController extends Controller
 {
     /**
@@ -37,7 +41,20 @@ class HojaderutaController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'text' => 'required',
+            'start' => 'required'
+        ]);
+        
         Hojaderuta::create($request->all());
+        Flash::success("Hoja de ruta guardado exitosamente..");
+
+        //envio de notififacion
+        if (Auth::user()->phone) {
+            $api = new Api(config('settings.WHATICKET_BASEURL'), config('settings.WHATICKET_TOKEN'));
+            $api->sendMessage($phone, 'Hoja de ruta guardado exitosamente..', ucfirst(config('settings.WHATICKET_WHATSAPP_ID')));    
+        }
         return redirect(route('hojaderutas.index'));
     }
 
@@ -73,6 +90,11 @@ class HojaderutaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'text' => 'required',
+            'start' => 'required'
+        ]);
         $miedit = Hojaderuta::find($id);
         $miedit->fill($request->all())->save();
         Flash::success('Hoja de ruta actualizado exitosamente.');
@@ -89,4 +111,5 @@ class HojaderutaController extends Controller
     {
         //
     }
+
 }
