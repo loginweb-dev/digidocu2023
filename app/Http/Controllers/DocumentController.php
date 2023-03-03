@@ -165,11 +165,13 @@ class DocumentController extends Controller
         $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
 
         $hr = Hojaderuta::find($document->hojaderuta);
-        $dataToRet = compact('document', 'missigDocMsgs', 'hr');
+        $miremit = User::find($document->remitente_id);
+
+        $dataToRet = compact('document', 'missigDocMsgs', 'hr', 'miremit');
 
         
         if (auth()->user()->can('user manage permission')) {
-            $users = User::where('id', '!=', 1)->get();
+            $users = User::where('id', '!=', 1)->where('type', 'Interno')->orderBy('updated_at', 'desc')->get();
             $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($document);
             //Tag Level permission
             $tagWisePermList = $this->permissionRepository->getTagWiseUsersPermissionsForDoc($document);
@@ -197,9 +199,9 @@ class DocumentController extends Controller
         $document->save();
 
         //solo enviar si tiene telefono
-        if ($user->phone) {
-            $this->send($id, '591'.$user->phone);
-        }
+        // if ($user->phone) {
+        //     $this->send($id, '591'.$user->phone);
+        // }
         return redirect()->back();
     }
 
@@ -217,30 +219,19 @@ class DocumentController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $document = Document::findOrFail($id);
         $this->authorize('edit', $document);
         $tags = Tag::all();
         $hr = Hojaderuta::all();
-        $mihr = Hojaderuta::find($id);
+        $mihr = Hojaderuta::find($document->hojaderuta);
+        $miremit = User::find($document->remitente_id);
         $customFields = $this->customFieldRepository->getForModel('documents');
-        return view('documents.edit', compact('tags', 'customFields', 'document', 'hr', 'mihr'));
+        $remitentes = User::where('type', 'Externo')->orderBy('updated_at', 'desc')->get();
+        return view('documents.edit', compact('tags', 'customFields', 'document', 'hr', 'mihr', 'remitentes', 'miremit'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateDocumentRequest $request, $id)
     {
         $document = Document::findOrFail($id);
@@ -254,12 +245,6 @@ class DocumentController extends Controller
         return redirect()->route('documents.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $document = Document::findOrFail($id);
@@ -384,16 +369,10 @@ class DocumentController extends Controller
     public function print($id)
     {
         $midoc = Document::find($id);
-        // $data = [
-        //     'foo' => 'bar',
-        //     'midoc' => $midoc
-        // ];
-        // $pdf = new PDF();
-        // $pdf->loadView('documents.print', $data);
-        // return $pdf->stream('document.pdf');
-
-        // $query = App\Documento::where('id', $id)->with('categoria', 'destinatario', 'editor', 'copias', 'remitente_interno', 'remitente_externo')->first();
-        $vista = view('documents.print', compact('midoc'));
+        $miremit = User::find($midoc->remitente_id);
+        $miuser = User::find(Auth::id());
+        $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($midoc);
+        $vista = view('documents.print', compact('midoc', 'miremit', 'miuser', 'thisDocPermissionUsers'));
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($vista)->setPaper('letter');
         return $pdf->stream();

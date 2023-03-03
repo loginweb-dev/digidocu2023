@@ -36,5 +36,28 @@ class UsersTableSeeder extends Seeder
             'type' => 'Interno'
         ]);
 
+        \App\User::create([
+            'name' => 'Concejal Presidente Actual',
+            'username' => 'presi.actual',
+            'password' => bcrypt('123456'),
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Interno'
+        ]);
+
+        \App\User::create([
+            'name' => 'Secretaria Presidente Actual',
+            'username' => 'secre.actual',
+            'password' => bcrypt('123456'),
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Interno'
+        ]);
+
+        \App\User::create([
+            'name' => 'Luis Flores',
+            'username' => 'luis.flores',
+            'password' => bcrypt('123456'),
+            'status' => config('constants.STATUS.ACTIVE'),
+            'type' => 'Externo'
+        ]);
     }
 }

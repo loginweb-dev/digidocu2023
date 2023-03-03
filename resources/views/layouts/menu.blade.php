@@ -7,11 +7,15 @@
                 class="fa fa-file"></i><span>{{ ucfirst(config('settings.document_label_plural')) }}</span></a>
     </li>
 @endcan
-@can('read users')
-    <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
-        <a href="{!! route('users.index') !!}"><i class="fa fa-users"></i><span>Usuarios</span></a>
+
+@can('read tags')
+    <li class="{{ Request::is('admin/comunicaciones*') ? 'active' : '' }}">
+        <a href="{!! route('comunicaciones.index') !!}"><i
+                class="fa fa-phone"></i><span>Com. Internas</span></a>
     </li>
 @endcan
+
+
 @can('read tags')
     <li class="{{ Request::is('admin/tags*') ? 'active' : '' }}">
         <a href="{!! route('tags.index') !!}"><i
@@ -26,10 +30,9 @@
     </li>
 @endcan
 
-@can('read tags')
-    <li class="{{ Request::is('admin/comunicaciones*') ? 'active' : '' }}">
-        <a href="{!! route('comunicaciones.index') !!}"><i
-                class="fa fa-phone"></i><span>Com. Internas</span></a>
+@can('read users')
+    <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+        <a href="{!! route('users.index') !!}"><i class="fa fa-users"></i><span>Usuarios</span></a>
     </li>
 @endcan
 

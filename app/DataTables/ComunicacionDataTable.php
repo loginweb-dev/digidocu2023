@@ -47,8 +47,8 @@ class ComunicacionDataTable extends DataTable
             'de_id',
             'hojaderuta_id',
             'document_id',
-            'referencia',
-            'nota',
+            // 'referencia',
+            // 'nota',
             'fecha',
             'hora'
         ];

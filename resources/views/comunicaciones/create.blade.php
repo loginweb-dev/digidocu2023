@@ -37,7 +37,7 @@
                             @foreach ($users as $item)
                                 @if ($item->id == $user->id)                                    
                                 @else
-                                    <option value="{{ $item->id }}">{{ $item->name.' - '.$item->id }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->id.'.- '.$item->name }}</option>
                                 @endif                                
                             @endforeach            
                         </select>
@@ -110,12 +110,25 @@
         var currentTime = date.toLocaleTimeString('it-IT', timeOptions);
         document.getElementById('hora').value = currentTime;
     
-        const miselect = document.getElementById('hojaderuta_id');
-        miselect.addEventListener('change', function handleChange(event) {
-            console.log(event.target.value); // 👉️ get selected VALUE
+        // const miselect = document.getElementById('hojaderuta_id');
+        // miselect.addEventListener('change', function handleChange(event) {
+        //     console.log(event.target.value); // 👉️ get selected VALUE
 
-            document.getElementById('code').value = miselect.options[miselect.selectedIndex].text;
+        //     document.getElementById('code').value = miselect.options[miselect.selectedIndex].text;
+        // });
+
+        const select = document.getElementById('hojaderuta_id');
+        select.addEventListener('change', async function handleChange(event) {
+            var hdr = await axios("{{ config('settings.system_url') }}api/hojaderutas/get/"+select.options[select.selectedIndex].value)
+            var newcode = hdr.data.text
+            newcode = newcode.replace("##", hdr.data.start)
+            document.getElementById('code').value = newcode
+            Toastify({
+                text: "Hoja de Ruta: "+hdr.data.name,
+                duration: 3000
+            }).showToast();
         });
+
 
     </script>
 @endsection

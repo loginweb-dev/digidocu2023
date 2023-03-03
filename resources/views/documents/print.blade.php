@@ -78,17 +78,22 @@
 				<td style="text-align:left" width="50%">
 					<small>Remitente</small>
 					<br>
-					{{-- @if ($query->remitente_externo)
-						<input type="text" class="miinput3" value="{{ $midoc->remitente_externo->display }}">
-					@else
-						<input type="text" class="miinput3" value="{{ $midoc->remitente_interno->name }}">
-					@endif --}}
+					<input type="text" class="miinput3" value="{{ $miremit->name }}">
 				</td>
 				<td style="text-align:left">
-						<small>Destinatario:</small>
-						<br>
-						<input type="text" class="miinput3" value="{{ $midoc->id }}">
-					
+					<small>Destinatario:</small>
+					<br>
+					@php
+						if(count($thisDocPermissionUsers)==0){
+							$miusers = "No destinatarios, realize una derivacion para ver datos.";
+						}else{
+							$miusers = "";
+							foreach($thisDocPermissionUsers as $perm){
+								$miusers = $miusers.$perm['user']->name.' ';
+							}
+						}
+					@endphp
+					<input type="text" class="miinput3" value="{{ $miusers }}">					
 				</td>
 			</tr>
 			<tr>
@@ -104,7 +109,7 @@
 				<td style="text-align:left" width="50%">
 					<small>Recibido por:</small>
 					<br>
-					<input type="text" class="miinput1" value="{{ $midoc->id }}">
+					<input type="text" class="miinput1" value="{{ $miuser->name }}">
 				</td>
 				<td style="text-align:left">
 					<small>Firma:</small> 
@@ -319,7 +324,7 @@
 				<td style="text-align:left" colspan="2">
 					Destinatario:
 					<br>
-					<input type="text" class="miinput2">
+					<input type="text" class="miinput1">
 				</td>
 			</tr>
 			<tr>
@@ -363,7 +368,7 @@
 				<td style="text-align:left" colspan="2">
 					Destinatario:
 					<br>
-					<input type="text" class="miinput2">
+					<input type="text" class="miinput1">
 				</td>
 			</tr>
 			<tr>
@@ -407,7 +412,7 @@
 				<td style="text-align:left" colspan="2">
 					Destinatario:
 					<br>
-					<input type="text" class="miinput2">
+					<input type="text" class="miinput1">
 				</td>
 			</tr>
 			<tr>
@@ -451,7 +456,7 @@
 				<td style="text-align:left" colspan="2">
 					Destinatario:
 					<br>
-					<input type="text" class="miinput2">
+					<input type="text" class="miinput1">
 				</td>
 			</tr>
 			<tr>

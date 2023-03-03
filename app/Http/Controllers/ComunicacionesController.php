@@ -32,7 +32,7 @@ class ComunicacionesController extends Controller
      */
     public function create()
     {
-        $users = \App\User::all();
+        $users = \App\User::where("type", "Interno")->where("id", "<>", 1)->get();
         $user= \App\User::find(Auth::user()->id);
         $hr = Hojaderuta::all();
         return view('comunicaciones.create', compact('users', 'user', 'hr'));
@@ -51,6 +51,7 @@ class ComunicacionesController extends Controller
         // $api->sendMessage('NUMBER', 'Whaticket api test', 'WHATICKET_WHATSAPP_ID or null');
         
         $new = Comunicaciones::create($request->all());
+        // return $request->de_id;
         $document = Document::create([
             'name' =>  'Comunicacion Interna #'.$new->id,
             'status' => config('constants.STATUS.PENDING'),
@@ -59,7 +60,8 @@ class ComunicacionesController extends Controller
             'code' => $request->code,
             'fecha' => $request->fecha,
             'hora' => $request->hora,
-            'type' => 'Interno'
+            'type' => 'Interno',
+            'remitente_id' => $request->de_id
         ]);
         $new->document_id = $document->id;
         $new->save();

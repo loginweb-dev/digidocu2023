@@ -56,14 +56,6 @@ class DocumentRepository extends BaseRepository
     }
 
 
-    /**
-     * Search or get all documents with pagination
-     * @param null $search
-     * @param array $tag
-     * @param null $status
-     * @param bool $paginate
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|array
-     */
     public function searchDocuments($search=null,$tag=[],$status=null,$paginate=true)
     {
         $query = $this->allQuery($search);
@@ -78,7 +70,7 @@ class DocumentRepository extends BaseRepository
         $query = $query->with('tags');
         debug($query->toSql());
         if($paginate)
-            return $query->paginate(25);
+            return $query->orderBy('updated_at', 'desc')->paginate(25);
         else
             return $query->get();
     }

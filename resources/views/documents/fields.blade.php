@@ -1,10 +1,10 @@
 <!-- Name Field -->
 
     <div class="col-sm-6">
-        <label for="">Remitente Externo | <a href="{{ config('settings.system_url') }}admin/users/create">Nuevo Usuario</a></label>
+        <label for="">Remitente | <a href="{{ config('settings.system_url') }}admin/users/create">Nuevo Usuario</a></label>
         <select class="form-control" name="remitente_id" id="remitente_id" required>
             @foreach ($remitentes as $item)
-                <option value="{{ $item->id }}">{{ $item->name.' - '.$item->phone }}</option>
+                <option value="{{ $item->id }}"  @if(isset($miremit) && $item->id == $miremit->id) selected @endif>{{ $item->id.' '.$item->name.' - '.$item->phone }}</option>
             @endforeach            
         </select>
         <input type="hidden" name="type" value="Externo">
@@ -12,31 +12,30 @@
 
     <div class="col-sm-4">
         <label for="">Fecha</label>
-        <input type="date" name="fecha" id="fecha" class="form-control" value="">
-        @if($document) {{ $document->fecha }} @endif
+        @php
+            $mifecha = isset($miremit) ? $document->fecha : \Carbon\Carbon::now();
+        @endphp
+        {!! Form::date('fecha', $mifecha, ['class' => 'form-control']) !!}
     </div>
 
     <div class="col-sm-2">
         <label for="">Hora</label>
-        <input type="time" name="hora" id="hora" class="form-control" value="">
-        @if($document) {{ $document->hora }} @endif
+        @php
+            $mihora = isset($miremit) ? $document->hora : \Carbon\Carbon::now();
+        @endphp
+        {!! Form::time('hora', $mihora, ['class' => 'form-control']) !!}
     </div>
 
     <div class="col-sm-12">
         <br>
      </div>
 
-
     <div class="col-sm-6">
         <label for="">Hoja de Ruta </label>
         <select class="form-control" name="hojaderuta" id="hojaderuta" required>
-            <option value="0">Elije una opcion</option>
+            {{-- <option value="0">Elije una opcion</option> --}}
             @foreach ($hr as $item)
-                @if (isset($mihr))
-                    <option value="{{ $item->id }}" @if($item->id == $mihr->id) selected @endif>{{ $item->name.' - '.$item->text }}</option>
-                @else
-                    <option value="{{ $item->id }}">{{ $item->text }}</option>
-                @endif
+                <option value="{{ $item->id }}" @if(isset($mihr) && $item->id == $mihr->id) selected @endif>{{ $item->name.' - '.$item->text }}</option>
             @endforeach            
         </select>
     </div>
@@ -88,7 +87,7 @@
 
 {!! Form::bsText('name') !!}
 
-{!! Form::bsTextarea('descripcion',null,['class'=>'form-control b-wysihtml5-editor']) !!}
+{!! Form::bsTextarea('description',null,['class'=>'form-control b-wysihtml5-editor']) !!}
 
 
 {{--additional Attributes--}}
@@ -110,14 +109,7 @@
 
 
 <script>
-    var date = new Date();
-    var dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    var currentDate = date.toLocaleDateString('ja-JP', dateOptions).replace(/\//gi, '-');
-    document.getElementById('fecha').value = currentDate;
-    
-    var timeOptions = { hour: '2-digit', minute: '2-digit' };
-    var currentTime = date.toLocaleTimeString('it-IT', timeOptions);
-    document.getElementById('hora').value = currentTime;
+
 
 
     const select = document.getElementById('hojaderuta');

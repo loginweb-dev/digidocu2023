@@ -244,6 +244,11 @@
                         <hr>
 
                         <div class="form-group">
+                            <label>Remitente:</label>
+                            {{$miremit->name}}
+                        </div>
+
+                        <div class="form-group">
                             <label>Tipo:</label>
                             <span class="label label-success">{{$document->type}}</span>
                         </div>
