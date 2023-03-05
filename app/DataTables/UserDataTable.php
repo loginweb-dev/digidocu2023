@@ -34,7 +34,8 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->where('id','!=',1);
+        // return $model->newQuery()->where('id','!=',1);
+        return $model->newQuery();
     }
 
     /**
@@ -51,7 +52,7 @@ class UserDataTable extends DataTable
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
-                'order'     => [[0, 'desc']],
+                'order'     => [[4, 'desc']],
                 'buttons'   => [
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -70,12 +71,12 @@ class UserDataTable extends DataTable
     {
         return [
             'id',
+            ['data' => 'type', 'title' => 'Tipo'],
             'name',
-            'email',
-            'phone',
-            'username',
-            'address',
-            'status'
+            'status',
+            ['data' => 'updated_at', 'title' => 'Actualizado'],
+            ['data' => 'username', 'title' => 'Login'],
+
         ];
     }
 

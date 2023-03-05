@@ -166,8 +166,8 @@
             <a href="{{route('documents.print', $document->id)}}" class="btn btn-default"><i class="fa fa-print"></i>
                 Imprimir</a>
 
-            <a href="{{route('documents.send', $document->id)}}" class="btn btn-default"><i class="fa fa-user"></i>
-                    Notificar</a>
+            <!-- <a href="{{route('documents.send', $document->id)}}" class="btn btn-default"><i class="fa fa-user"></i>
+                    Notificar</a> -->
             @can('edit', $document)
                 <a href="{{route('documents.edit', $document->id)}}" class="btn btn-default"><i class="fa fa-edit"></i>
                     Editar</a>

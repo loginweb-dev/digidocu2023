@@ -19,4 +19,18 @@ class Comunicaciones extends Model
         'hora'
     ];
 
+    public function dirigido()
+    {
+        return $this->belongsTo(User::class, 'dirigido_id');
+    }
+
+    public function via()
+    {
+        return $this->belongsTo(User::class, 'via_id');
+    }
+
+    public function hr()
+    {
+        return $this->belongsTo(Hojaderuta::class, 'hojaderuta_id');
+    }
 }

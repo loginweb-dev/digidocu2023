@@ -44,6 +44,7 @@
         }
     </script>
 @endcan
+
 <div class="box box-primary">
     <div class="box-header no-border">
         <h3 class="box-title">Detalles del usuario</h3>
@@ -126,99 +127,103 @@
         </div>
     </div>
 </div>
-@can('user manage permission')
-    <div class="box box-primary">
-        <div class="box-header no-border">
-            <h3 class="box-title">Permisos Globales</h3>
+@if (Auth::user()->id == 1)
+    
 
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
+    @can('user manage permission')
+        <div class="box box-primary">
+            <div class="box-header no-border">
+                <h3 class="box-title">Permisos Globales</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label class="control-label">User</label><br>
-                            @foreach(config('constants.GLOBAL_PERMISSIONS.USERS') as $permission_name=>$permission_label)
-                                <div class="form-group">
-                                    <label>
-                                        <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
-                                               value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
-                                        &nbsp;{{ucfirst($permission_label)}} Users
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="col-sm-4">
-                            <label class="control-label">{{ucfirst(config('settings.tags_label_plural'))}}</label><br>
-                            @foreach(config('constants.GLOBAL_PERMISSIONS.TAGS') as $permission_name=>$permission_label)
-                                <div class="form-group">
-                                    <label>
-                                        <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
-                                               value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
-                                        &nbsp;{{ucfirst($permission_label)}} {{ucfirst(config('settings.tags_label_plural'))}}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="col-sm-4">
-                            <label
-                                class="control-label">{{ucfirst(config('settings.document_label_plural'))}}</label><br>
-                            @foreach(config('constants.GLOBAL_PERMISSIONS.DOCUMENTS') as $permission_name=>$permission_label)
-                                <div class="form-group">
-                                    <label>
-                                        <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
-                                               value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
-                                        &nbsp;{{ucfirst($permission_label)}} {{ucfirst(config('settings.document_label_plural'))}}
-                                    </label>
-                                </div>
-                            @endforeach
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">User</label><br>
+                                @foreach(config('constants.GLOBAL_PERMISSIONS.USERS') as $permission_name=>$permission_label)
+                                    <div class="form-group">
+                                        <label>
+                                            <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
+                                                value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
+                                            &nbsp;{{ucfirst($permission_label)}} Users
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">{{ucfirst(config('settings.tags_label_plural'))}}</label><br>
+                                @foreach(config('constants.GLOBAL_PERMISSIONS.TAGS') as $permission_name=>$permission_label)
+                                    <div class="form-group">
+                                        <label>
+                                            <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
+                                                value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
+                                            &nbsp;{{ucfirst($permission_label)}} {{ucfirst(config('settings.tags_label_plural'))}}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="col-sm-4">
+                                <label
+                                    class="control-label">{{ucfirst(config('settings.document_label_plural'))}}</label><br>
+                                @foreach(config('constants.GLOBAL_PERMISSIONS.DOCUMENTS') as $permission_name=>$permission_label)
+                                    <div class="form-group">
+                                        <label>
+                                            <input name="global_permissions[]" type="checkbox" class="iCheck-helper"
+                                                value="{{$permission_name}}" {{optional($user ?? null)->can($permission_name)?'checked':''}}>
+                                            &nbsp;{{ucfirst($permission_label)}} {{ucfirst(config('settings.document_label_plural'))}}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="box box-primary">
-        <div class="box-header no-border">
-            <h3 class="box-title">{{ucfirst(config('settings.tags_label_plural'))}} con Permisos</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
+        <div class="box box-primary">
+            <div class="box-header no-border">
+                <h3 class="box-title">{{ucfirst(config('settings.tags_label_plural'))}} con Permisos</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="box-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Select {{ucfirst(config('settings.tags_label_singular'))}}</th>
-                            @foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
-                                <th>{{ucfirst($perm)}}</th>
-                            @endforeach
-                        </tr>
-                        </thead>
-                        <tbody id="permission-body">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Select {{ucfirst(config('settings.tags_label_singular'))}}</th>
+                                @foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
+                                    <th>{{ucfirst($perm)}}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody id="permission-body">
 
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="6">
-                                <button type="button" onclick="addRow()" class="btn btn-info btn-xs">Agregar
-                                    nuevo {{config('settings.tags_label_singular')}}</button>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <button type="button" onclick="addRow()" class="btn btn-info btn-xs">Agregar
+                                        nuevo {{config('settings.tags_label_singular')}}</button>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endcan
+    @endcan
+@endif
 <!-- Submit Field -->
 <div class="form-group">
     {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}

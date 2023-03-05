@@ -5,6 +5,7 @@ namespace App\DataTables;
 use App\Comunicaciones;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class ComunicacionDataTable extends DataTable
 {
@@ -15,7 +16,7 @@ class ComunicacionDataTable extends DataTable
     }
     public function query(Comunicaciones $model)
     {
-        $query = $model->newQuery();
+        $query = $model->newQuery()->where("de_id", Auth::user()->id)->with(["dirigido", "via", "hr"]);
         return $query;
     }
 
@@ -23,6 +24,7 @@ class ComunicacionDataTable extends DataTable
     {
         return $this->builder()
             ->columns($this->getColumns())
+            // ->addColumn(['data' => 'dirigido_id'])
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
@@ -42,15 +44,12 @@ class ComunicacionDataTable extends DataTable
     {
         return [
             'id',
-            'dirigido_id',
-            'via_id',
-            'de_id',
-            'hojaderuta_id',
-            'document_id',
-            // 'referencia',
-            // 'nota',
+            ['data' => 'dirigido.name', 'title' => 'Para'],
+            ['data' => 'via.name', 'title' => 'Via'],
+            ['data' => 'hr.name', 'title' => 'HojaRuta'],
             'fecha',
-            'hora'
+            'hora',
+            'document_id',
         ];
     }
 

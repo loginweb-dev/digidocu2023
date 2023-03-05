@@ -368,14 +368,26 @@ class DocumentController extends Controller
 
     public function print($id)
     {
-        $midoc = Document::find($id);
-        $miremit = User::find($midoc->remitente_id);
-        $miuser = User::find(Auth::id());
-        $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($midoc);
-        $vista = view('documents.print', compact('midoc', 'miremit', 'miuser', 'thisDocPermissionUsers'));
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($vista)->setPaper('letter');
-        return $pdf->stream();
+        $document = $this->documentRepository
+            ->getOneEagerLoaded($id,['files', 'files.fileType', 'files.createdBy', 'activities', 'activities.createdBy', 'tags']);
+        // return $document->tags[0]->id;
+        if ($document->tags[0]->id == config('settings.com_interna_tag')) {
+            # code...
+            $vista = view('comunicaciones.pdf');
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($vista)->setPaper('letter');
+            return $pdf->stream();
+        } else {
+            # code...
+            $midoc = Document::find($id);
+            $miremit = User::find($midoc->remitente_id);
+            $miuser = User::find(Auth::id());
+            $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($midoc);
+            $vista = view('documents.print', compact('midoc', 'miremit', 'miuser', 'thisDocPermissionUsers'));
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($vista)->setPaper('letter');
+            return $pdf->stream();
+        }
     }
 
     public function send($id, $phone)

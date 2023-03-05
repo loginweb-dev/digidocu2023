@@ -4,7 +4,7 @@
         <label for="">Remitente | <a href="{{ config('settings.system_url') }}admin/users/create">Nuevo Usuario</a></label>
         <select class="form-control" name="remitente_id" id="remitente_id" required>
             @foreach ($remitentes as $item)
-                <option value="{{ $item->id }}"  @if(isset($miremit) && $item->id == $miremit->id) selected @endif>{{ $item->id.' '.$item->name.' - '.$item->phone }}</option>
+                <option value="{{ $item->id }}"  @if(isset($miremit) && $item->id == $miremit->id) selected @endif>{{ $item->id.'.- '.$item->name }}</option>
             @endforeach            
         </select>
         <input type="hidden" name="type" value="Externo">
