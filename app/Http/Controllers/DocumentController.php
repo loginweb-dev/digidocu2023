@@ -29,6 +29,7 @@ use Spatie\Permission\Models\Permission;
 use App\Hojaderuta;
 use RicardoPaes\Whaticket\Api;
 use ZanySoft\LaravelPDF\PDF;
+use App\Comunicaciones;
 class DocumentController extends Controller
 {
     /** @var  TagRepository */
@@ -214,7 +215,7 @@ class DocumentController extends Controller
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Permiso eliminado");
 
         $miuser = User::find(Auth::id());
-        $document->newActivity($miuser->name." elimino la derivacion a: ".$user->name);
+        // $document->newActivity($miuser->name." elimino la derivacion a: ".$user->name);
 
         return redirect()->back();
     }
@@ -240,7 +241,7 @@ class DocumentController extends Controller
         $this->documentRepository->updateWithTags($data,$document);
 
         $miuser = User::find(Auth::id());
-        $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Actualizado por: ".$miuser->name);
+        // $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Actualizado por: ".$miuser->name);
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Actualizado Exitosamente");
         return redirect()->route('documents.index');
     }
@@ -249,7 +250,7 @@ class DocumentController extends Controller
     {
         $document = Document::findOrFail($id);
         $this->authorize('delete', $document);
-        $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Deleted");
+        // $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Deleted");
         $this->documentRepository->deleteWithFiles($document,true);
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Deleted Successfully");
         return redirect()->route('documents.index');
@@ -360,7 +361,7 @@ class DocumentController extends Controller
     {
         $file = File::findOrFail($id);
         $this->authorize('delete', $file->document);
-        $file->document->newActivity($file->name . " Deleted From " . ucfirst(config('settings.document_label_singular')));
+        // $file->document->newActivity($file->name . " Deleted From " . ucfirst(config('settings.document_label_singular')));
         $this->documentRepository->deleteFile($file);
         Flash::success(ucfirst(config('settings.file_label_singular')) . " Deleted Successfully");
         return redirect()->back();
@@ -373,7 +374,8 @@ class DocumentController extends Controller
         // return $document->tags[0]->id;
         if ($document->tags[0]->id == config('settings.com_interna_tag')) {
             # code...
-            $vista = view('comunicaciones.pdf');
+            $nci = Comunicaciones::where("document_id", $id)->first();
+            $vista = view('comunicaciones.pdf', compact("nci"));
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($vista)->setPaper('letter');
             return $pdf->stream();
